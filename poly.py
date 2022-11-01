@@ -64,7 +64,7 @@ regressor.fit(x_test, y_test)
 x_regression_line = np.linspace(min(x_test), max(x_test), len(x_test))
 y_regression_line = regressor.predict(x_regression_line.reshape(x_regression_line.shape[0], 1))
 
-plt.plot(x_regression_line, y_regression_line)
+plt.plot(x_regression_line, y_regression_line, label="prediction line", c='black')
 
 quadratic_featurizer = PolynomialFeatures(degree=2)
 
@@ -75,11 +75,12 @@ regressor_quadratic = LinearRegression()
 regressor_quadratic.fit(x_test_quadratic, y_test)
 predicted_quadratic_output = quadratic_featurizer.transform(x_regression_line.reshape(x_regression_line.shape[0], 1))
 # Plot the regression line
-plt.plot(x_regression_line, regressor_quadratic.predict(predicted_quadratic_output), c='r', linestyle='--')
+plt.plot(x_regression_line, regressor_quadratic.predict(predicted_quadratic_output), c='r', linestyle='--', label="regression line")
 plt.title("Centripetal acceleration regressed on radius of motion")
 plt.xlabel("Radius of motion(m)")
 plt.ylabel("Centripetal acceleration x10⁶m/s²")
 plt.axis([min(x_test) - 1, max(x_test) + 1, min(y_test) - 1, max(y_test) + 1])
 plt.grid(True)
-plt.scatter(x_test, y_test, s=10)
+plt.scatter(x_test, y_test, s=10, label="velocity affected by randomised friction")
+plt.legend(loc='upper left')
 plt.show()
